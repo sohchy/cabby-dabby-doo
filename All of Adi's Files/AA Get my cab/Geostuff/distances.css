@@ -1,0 +1,11 @@
+ body {
+        margin: 20px;
+        font-family: courier, sans-serif;
+        font-size: 12px;
+      }
+      #map {
+        height: 480px;
+        width: 640px;
+        border: solid thin #333;
+        margin-top: 20px;
+      }

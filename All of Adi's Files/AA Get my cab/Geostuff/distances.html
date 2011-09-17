@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Maps API v3 Example: Distance Matrix</title>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="distances.js"></script> 
+    <link rel="stylesheet" href="distances.css" type="text/css" media="all" /> 
+
+   
+  </head>
+  <body onload="initialize()">
+    <div id="inputs">
+      <pre class="prettyprint">
+var origin1 = new google.maps.LatLng(55.930385, -3.118425);
+var origin2 = "Greenwich, England";
+var destinationA = "Stockholm, Sweden";
+var destinationB = new google.maps.LatLng(50.087692, 14.421150);
+      </pre>
+      <p><button type="button" onclick="calculateDistances();">Calculate
+        distances</button></p>
+    </div>
+    <div id="outputDiv"></div>
+
+    <div id="map"></div>
+  </body>
+</html>

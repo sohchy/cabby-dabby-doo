@@ -39,38 +39,54 @@ $(document).ready(function(){
 	}
 
 	$user_destination_txtbox.focus(function(){
-		if($(this).val() == "destination?") {
+	
+		var tmp_val = $(this).val();
+		if(tmp_val == "destination?") {
 			$(this).val('');
+		} else if( tmp_val.length != 0){
+			
+			var destination_autocomplete = new google.maps.places.Autocomplete($(this).val());
+			destination_autocomplete.bindTo('bounds', map);
 		}
+		
+		console.log(map);
+		
 	});
 	
+	//google.maps.event.addListener(destination_autocomplete, 'place_changed', function(){
+	
+	//});
+	
+	// Creating a MapOptions object with the required properties 
+    var options = { 
+      zoom: 16, 
+      //center: new google.maps.LatLng(parseFloat(starting_lat), parseFloat(starting_long)),
+      center: new google.maps.LatLng(starting_lat, starting_long), 
+      mapTypeId: google.maps.MapTypeId.ROADMAP 
+    }; 
+	///// USE DIFFERENT icons for cars
+	// ~!!!!!! if starting_lat, starting_long are empty, prefill them
+
+	var map = new google.maps.Map(document.getElementById('user_map'), options); 
+	var marker = new google.maps.Marker({ 
+		position: new google.maps.LatLng($user_destination_txtbox_lat.val(), $user_destination_txtbox_long.val()), 
+		map: map,
+		title: 'Click me',  	icon:'http://icons.iconarchive.com/icons/aha-soft/perfect-transport/48/Ta	xi-icon.png'
+	}); 
+	
+	var infowindow = new google.maps.InfoWindow({ 
+		content:'<div class="info">Hello world</div>' 
+	});
+	
+	google.maps.event.addListener(marker, 'click', function() { 
+		// Calling the open method of the infoWindow 
+		infowindow.open(map, marker); 
+	}); 
+
+	
+	
 	$user_destination_submit.click(function(){	
-	    // Creating a MapOptions object with the required properties 
-	    var options = { 
-	      zoom: 16, 
-	      //center: new google.maps.LatLng(parseFloat(starting_lat), parseFloat(starting_long)),
-	      center: new google.maps.LatLng(starting_lat, starting_long), 
-	      mapTypeId: google.maps.MapTypeId.ROADMAP 
-	    }; 
-		///// USE DIFFERENT icons for cars
-		// ~!!!!!! if starting_lat, starting_long are empty, prefill them
-	
-		var map = new google.maps.Map(document.getElementById('user_map'), options); 
-		var marker = new google.maps.Marker({ 
-			position: new google.maps.LatLng($user_destination_txtbox_lat.val(), $user_destination_txtbox_long.val()), 
-			map: map,
-			title: 'Click me',  	icon:'http://icons.iconarchive.com/icons/aha-soft/perfect-transport/48/Ta	xi-icon.png'
-		}); 
-		
-		var infowindow = new google.maps.InfoWindow({ 
-			content:'<div class="info">Hello world</div>' 
-		});
-		
-		google.maps.event.addListener(marker, 'click', function() { 
-			// Calling the open method of the infoWindow 
-			infowindow.open(map, marker); 
-		}); 
-	
+	    	
 	});
 	
 	
