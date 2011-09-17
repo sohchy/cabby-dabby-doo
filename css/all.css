@@ -1,0 +1,24 @@
+#user_map {
+	
+	position: static;
+	width:100%;
+	height: 500px;
+}
+
+body {
+	font-family: 'Quattrocento', serif;
+	background: #ededed;
+}
+
+#user_destination_txtbox {
+	font-size: 34px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px; /* future proofing */
+	
+	margin: 20px;
+	padding: 10px;
+
+	color: #aaa;
+
+}
