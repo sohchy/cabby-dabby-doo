@@ -41,9 +41,6 @@
 		
 		// identify user from this session value
 		$_SESSION["user_session_variable"] = uniqid();
-		
-		$user_html .= strlen($_SESSION["user_session_variable"]);
-		
 		setcookie("user_session_variable_cookie", $_SESSION["user_session"],time()+3600);
 		
 		
