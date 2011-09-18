@@ -3,10 +3,7 @@ $(document).ready(function(){
 	$user_destination_txtbox_lat = $("#user_destination_txtbox_lat");
 	$user_destination_txtbox_long = $("#user_destination_txtbox_long");
 	$user_destination_txtbox = $("#user_destination_txtbox");
-	
-	
 	$user_destination_submit = $("#user_destination_submit");
-	
 	
 	// GEO LOCATION STUFF
 	var watchID;
@@ -14,15 +11,9 @@ $(document).ready(function(){
 	var MAXIMUM_AGE = 1000; // 1 sec
 	var TIMEOUT = 300000 // 5 mins
 	var HIGHACCURACY = true;
-	
-	var lat, long;
-	
-	
-	var starting_lat;
-	var starting_long;
-	
+	var lat, long;	
+	var starting_lat,starting_long;
 	var run_once_counter = 0;
-	
 	
 	// if geo can be created
 	if((geo = getGeoLocation())) {
@@ -103,7 +94,6 @@ $(document).ready(function(){
 
 	// BETTER THAN ALERT
 	function geo_error(error) {
-		stopWatching();
 		switch(error.code) {
 			case error.TIMEOUT:
 				alert('Geolocation Timeout');

@@ -3,8 +3,7 @@
 	include_once('functions.php');
 
 	$front_page_html = 
-		'<!DOCTYPE HTML>
-		 <html>
+		'<html>
 			<head>
 				<!-- for iphone? meta tag -->
 				<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -14,9 +13,11 @@
 				<link href="css/reset.css" rel="stylesheet" type="text/css" />
 				<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script> 
 				<script type="text/javascript" src="js/jquery164.js"></script>
-				<script type="text/javascript" src="js/all.js"></script>
+				
 			</head>
-			<body>'.return_body_content().'</body>
+			<body><div id="map_canvas" style="width:100%; height:100%"></div> </body>
+			
+			<script type="text/javascript" src="js/all2.js"></script>
 		</html>';
 
 
