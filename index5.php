@@ -7,6 +7,9 @@
 	include_once('includes/functions.php');
 ?>
 
+
+
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -15,31 +18,21 @@
 	</head>
 	<body>
 		<div id="page_container">
-		
-			<span id="page_login">Login/Register</span>
 			
-			<span id="page_logout">Logout</span>
-		
-			<div id="login_div">
-				<input type="text" name="enduser_email" id="login_div_email" />Email
-				<input type="password" name="enduser_pwd" id="login_div_pwd" />Password
-				<input type="submit" value="Login or Register" id="login_div_submit" />
-			</div>
-				
-			<?php
-					
-				if(!isset($_SESSION["cabbie_logged_in"])) {
-			
-					echo '	<div id="searchfield_div">
-								<input id="searchTextField" type="text" size="50">
-							</div>';
-				}
-			?>
-			
-			
-	
 			<div id="left_panel">
 			
+				<div id="pick_me_up_current_address" class="left_panel_enduser">
+					<span>Some current address</span>
+				</div>	
+				
+				<div id="my_destination_address" class="left_panel_enduser">
+					<span>Some destination address</span>
+				</div>
+				
+				<div id="pinging_the_server_enduser" class="left_panel_enduser">
+					<span>Trying to find a cab near you ...</span>
+				</div>
+				
 				
 			
 			
@@ -52,7 +45,6 @@
 		
 		
 	</body>
-	<script type="text/javascript" src="js/jquery164.js"></script>
 	<script type="text/javascript" src="js/all5.js"></script>
 
 </html>
