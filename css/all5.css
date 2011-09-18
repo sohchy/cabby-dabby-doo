@@ -3,18 +3,11 @@ body {
 	background: #ededed;
 }
 
-#user_destination_txtbox {
-
-
-}
-
 #map_canvas
 {
 	height: 400px;
 	width: 600px;
-	display: block;
-	margin: 20px;
-	border-left: 1px solid #555;
+	float: right;
 
 }
 
@@ -26,14 +19,14 @@ body {
 	display: block;
 	margin: 20px;
 	padding: 10px;
-
+	width: 100%;
 	color: #aaa;	
 }
 
 #left_panel{
 	float: left;
-	margin:20px;
-	padding: 20px;
+	margin:10px;
+	padding:10px;
 	width: 300px;
 }
 
@@ -50,5 +43,6 @@ body {
 }
 
 #page_container {
-	display: none;
+	width:960px;
+	margin:0 auto;
 }
