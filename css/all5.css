@@ -5,10 +5,11 @@ body {
 
 #map_canvas
 {
-	height: 400px;
-	width: 600px;
+	height: 600px;
+	width: 80%;
 	float: right;
-
+	margin-right: 20px;
+	border: 3px solid #ddd;
 }
 
 #searchTextField {
@@ -43,7 +44,6 @@ body {
 }
 
 #page_container {
-	width:960px;
 	margin:0 auto;
 }
 
@@ -54,4 +54,17 @@ body {
 
 .who_am_i {
 
+}
+
+#request_activation_button {
+	font-size: 20px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px; /* future proofing */
+	border:1px solid #000;
+	
+}
+
+.nametag{
+	font-size: 20px;
 }

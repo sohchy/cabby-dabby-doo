@@ -7,6 +7,9 @@
 	include_once('includes/functions.php');
 ?>
 
+
+
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -14,9 +17,8 @@
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>
 	</head>
 	<body>
-		<p class="nametag">Customer Page</p>
 		<div id="page_container">
-			
+		
 			<input id="searchTextField" type="text" size="50">
 
 			
@@ -34,6 +36,9 @@
 					<span>Trying to find a cab near you ...</span>
 				</div>
 				
+				
+			
+			
 			</div>
 			<div id="map_canvas">
 			</div>

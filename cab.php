@@ -15,9 +15,7 @@ if(isset($_GET["cabbie_id"])){
 	$cabbie_id = 83;
 }
 
-
 //echo "Distance between customer ($user_id_enduser) and me ($cabbie_id) is :" . $distance;
-
 
 
 ?>
@@ -33,6 +31,9 @@ if(isset($_GET["cabbie_id"])){
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>
 	</head>
 	<body>
+		<p class="nametag">Cab Driver Page</p>
+
+	
 		<div id="page_container">
 			
 			<div id="who_am_i" class="who_am_i"><?php echo "I'm Cabbie #".$cabbie_id;  ?></div>
@@ -48,7 +49,7 @@ if(isset($_GET["cabbie_id"])){
 				</div>
 				
 				<div id="pinging_the_server_cab" class="left_panel_enduser">
-					<span>Trying to find you a customer, near you ...</span>
+					<button id="request_activation_button" disabled="disabled">Request Transaction With Customer</button>
 				</div>
 				
 				

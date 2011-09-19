@@ -101,6 +101,12 @@ if(isset($_SESSION["user_logged_in"])) {
 	
 	echo $array_pass;
 
+// update customer spotlight
+
+$update_customer_spotlight = "SELECT ";
+
+
+
 }
 
 ?>

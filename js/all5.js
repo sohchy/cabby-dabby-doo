@@ -42,7 +42,7 @@ function initialize() {
   		map.setCenter(initialLocation);
   		
   		var input = document.getElementById("searchTextField");
-  		
+  		  		
   		var defaultBounds = new google.maps.LatLngBounds(
   			new google.maps.LatLng(position.coords.latitude-.2, position.coords.longitude-.2),
   			new google.maps.LatLng(position.coords.latitude+.2, position.coords.longitude+.2));

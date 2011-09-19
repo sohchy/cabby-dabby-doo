@@ -1,5 +1,6 @@
 // SET UP BOUNDS ON SEARCH !!
 
+var streetAddress,revGeoCoder;;
 var initialLocation;
 var siberia = new google.maps.LatLng(60, 105);
 var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
@@ -11,7 +12,10 @@ var geocoder,addressLocation,directionsDisplay,trip_distance,trip_duration;
 
 var directionsService = new google.maps.DirectionsService();
 
-var initial_lat,initial_long;
+var initial_lat,initial_lng;
+var map;
+
+var text_address_tmp;
 			
 function initialize() {
 	
@@ -20,11 +24,13 @@ function initialize() {
 	
 	var mapOptions = {
 		//center: new google.maps.LatLng(-33.8688,151.2195),
-		zoom:13,
+		zoom:12,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	
-	var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+	map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+	
+	
 	
 	directionsDisplay.setMap(map);
 
@@ -37,15 +43,47 @@ function initialize() {
   	
   	
   		$.ajax({
-  			url: "get_cabbie_location.php",
+  			url: "includes/get_cabbie_location.php",
   			data: "cabbie_id="+location.href.substr(location.href.length-2),
+  			async: true,
   			success: function(data) {
+  			
+
   			
   				var lat_lng = data.split('#');
   			
   				initial_lat = lat_lng['0'];
-  				initial_long = lat_lng['1'];
-  			
+  				initial_lng = lat_lng['1'];
+				// for the cab driver
+				addMarker(map, initial_lat, initial_lng );
+  				
+  				var revGeoCoder= new google.maps.Geocoder();
+				var latlng= new google.maps.LatLng(initial_lat,initial_lng);
+	
+    			revGeoCoder.geocode({'latLng': latlng}, function(results, status) {
+     	
+     				if (status == google.maps.GeocoderStatus.OK) {
+        
+						var streetAddress=results[0].formatted_address;
+						
+						console.log(streetAddress);
+		
+      				} else {
+			       		// return("Geocoder failed due to: " + status);
+			       		console.log(status);
+       
+      				}
+    			});
+  				
+  				
+  				codeLatLng(initial_lat, initial_lng);
+  				
+				//var text_address = codeLatLng(initial_lat,initial_lng);
+				
+				//console.log("textaddress : " + text_address_tmp);
+				//document.getElementById("cab_destination_address").innerHTML = text_address; 
+			
+			
   				//initial_lat = position.coords.latitude;
 		  		//initial_long = position.coords.longitude;
 		  	
@@ -63,11 +101,11 @@ function initialize() {
 		  			bounds: defaultBounds,
 		  		}
   			
-  			}
+  			},
   			
   		});
 	
-		});	// end of google.maps.event.addlistener
+		//});	// end of google.maps.event.addlistener
 	}, function(){
   		handleNoGeoLocation(browserSupportFlag);
   	});
@@ -99,14 +137,16 @@ function initialize() {
   }
  
  /*** end from all2.js ******/
+ 
+ 
 
 }
 //google.maps.event.addDomListener(window,'load',initialize);
 
-
-window.onLoad = initialize();
-
 $(document).ready(function(){
+
+	initialize();
+
 
 	setInterval(simple_ajax_call,10000);
 });
@@ -118,31 +158,99 @@ function simple_ajax_call() {
 		success: function(data) {
 		
 			if(data.match('customer_found#') != null) {
+				
+				clearInterval(simple_ajax_call);
+				
+				//$("#pinging_the_server_cab").html('We have found a customer!');
+				
+				$("#request_activation_button").removeAttr('disabled');
+				
+				var customer_id = data.replace("customer_found#",'');
+				
+				var cabbie_id = location.href.substr(location.href.length-2);
+				
+				$.ajax({
+				
+					url: "includes/get_distance_for_cabbie.php",
+					data: "cabbie_id="+cabbie_id+"&enduser_id="+customer_id,
+					success: function(data2) {
+						var tmp_split = data2.split('#');
+						
+						var tmp_distance = tmp_split[0];
+						var tmp_lat = tmp_split[1];
+						var tmp_long = tmp_split[2];
+						//customer vals
+						console.log(data2+"@@@@"+tmp_lat+"@@@@"+tmp_long);
+
+						
 					
-					clearInterval(simple_ajax_call);
-					
-					$("#pinging_the_server_cab").html('We have found a customer!');
-					
-					var customer_id = data.replace("customer_found#",'');
-					
-					var cabbie_id = location.href.substr(location.href.length-2);
-					
-					$.ajax({
-					
-						url: "includes/get_distance_for_cabbie.php",
-						data: "cabbie_id="+cabbie_id+"&enduser_id="+customer_id,
-						success: function(data2) {
-							$("#pinging_the_server_cab").append("Your customer is "+data2+"miles from your location");
-						}
-					
-					});
-					
-					
+						$("#pinging_the_server_cab").html("Your customer is "+ tmp_distance +"miles at "+tmp_lat+" latitude, "+tmp_long+" longitude");
+												
+						addMarker(map,tmp_lat,tmp_long);
+					}
+				
+				});
 					
 			}
 		
 		}
 	});
+}
 
+
+ 
+//once u send the lat lang, it returns the address or error
+function codeLatLng(lat,lng) {  
+	
+	var revGeoCoder= new google.maps.Geocoder()
+	var latlng= new google.maps.LatLng(lat,lng);
+	
+    revGeoCoder.geocode({'latLng': latlng}, function(results, status) {
+     	
+     	
+      if (status == google.maps.GeocoderStatus.OK) {
+        
+       
+        
+        
+		var streetAddress=results[0].formatted_address;
+		
+		
+		console.log("asdf" + streetAddress);
+		
+		alert(streetAddress);
+		
+		//alert(streetAddress);
+		
+		//document.getElementById("cab_destination_address").innerHTML = 'asdfasdf'+streetAddress; 
+		
+		
+		//text_address_tmp = streetAddress;
+		
+		//console.log(text_address_tmp+"asdf");
+		
+		
+		//return(String(streetAddress));
+		
+      } else {
+       // return("Geocoder failed due to: " + status);
+       console.log(status);
+       
+       
+      }
+    });
+    
+}
+
+
+
+
+
+function addMarker(map,lat,lng){
+
+
+var marker= new google.maps.Marker({
+position: new google.maps.LatLng(lat,lng),
+map:map});
 
 }
